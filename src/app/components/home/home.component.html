@@ -1,0 +1,173 @@
+<h1 style="text-align: center;">Home</h1>
+
+<div class="container ">
+    <div class="row d-flex justify-content-center">
+        <div class="col-7">
+            <h5 style="text-align: center;">Jugadores</h5>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#id</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Ratio</th>
+                        <th scope="col">Update name</th>
+                        <th scope="col">Eliminar Jugador</th>
+                        <th scope="col">Jugar</th>
+                        <th scope="col">Eliminar jugadas</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let jugador of jugadores">
+                        <td>{{ jugador.idJugador }}</td>
+                        <td>{{ jugador.nombre }}</td>
+                        <td>{{ jugador.ratio.toFixed(0) }}%</td>
+                        <td>
+                            <button type="button" class="btn bg-info" data-bs-toggle="modal"
+                                data-bs-target="#updateJugador" (click)="setJugador(jugador)" style="color: white">
+                                update
+                            </button>
+                        </td>
+                        <td>
+                            <button class="btn bg-danger" type="button" data-bs-toggle="modal"
+                                data-bs-target="#deleteJugador" (click)="setJugador(jugador)" style="color: white">
+                                delete
+                            </button>
+                        </td>
+                        <td>
+                            <button class="btn bg-success" type="button" (click)="addJuego(jugador.idJugador)"
+                                style="color: white">
+                                <a style="color: white; text-decoration: none;">Jugar</a>
+                            </button>
+                        </td>
+                        <td>
+                            <button class="btn bg-danger" type="button" data-bs-toggle="modal"
+                                data-bs-target="#deleteJugadas" (click)="setJugador(jugador)" style="color: white">
+                                delete
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+
+                <button type="button" class="btn bg-primary mt-2" data-bs-toggle="modal" data-bs-target="#addJugador"
+                    style="color: white">
+                    Add player
+                </button>
+                <button type="button" class="btn bg-primary mt-2" style="color: white">
+                    <a href="/home" style="color: white; text-decoration: none;">Update table</a>
+                </button>
+
+            </table>
+        </div>
+
+        <div class="col-5">
+            <h5 style="text-align: center;">Jugada actual</h5>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">dado 1</th>
+                        <th scope="col">dado 1</th>
+                        <th scope="col">resultado</th>
+                        <th scope="col">victoria</th>
+                        <th scope="col">juegos</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{ juego.nombreJugador }}</td>
+                        <td>{{ juego.dado1 }}</td>
+                        <td>{{ juego.dado2 }}</td>
+                        <td>{{ juego.resultado }}</td>
+                        <td>{{ juego.victoria }}</td>
+                        <td>{{ juegos.length }}</td>
+
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal delete jugador-->
+<div class="modal fade" id="deleteJugador" tabindex="-1" aria-labelledby="deleteJugadorLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteJugadorLabel">Delete player?</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" (click)="eliminarJugador()">
+                    <a href="/home" style="color: white; text-decoration: none;">delete</a>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal delete jugadas-->
+<div class="modal fade" id="deleteJugadas" tabindex="-1" aria-labelledby="deleteJugadasLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteJugadasLabel">Delete all games?</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" (click)="eliminarJugadas()">
+                    <a href="/home" style="color: white; text-decoration: none;">delete</a>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal update -->
+<div class="modal fade" id="updateJugador" tabindex="-1" aria-labelledby="updateJugadorLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="updateJugadorLabel">Update player name?</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <label for="inputName" class="form-label">Name:</label>
+                <input type="text" class="form-control" id="inputName" #nombreModificado>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button class="btn bg-info" type="button" (click)="updateJugador(nombreModificado.value)">
+                    <a href="/home" style="color: white; text-decoration: none;">update</a>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal add -->
+<div class="modal fade" id="addJugador" tabindex="-1" aria-labelledby="addJugadorLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addJugadorLabel">Add player?</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <label for="inputName" class="form-label">Name:</label>
+                <input type="text" class="form-control" id="inputName" #playerName>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button class="btn bg-info" type="button" (click)="addJugador(playerName.value)">
+                    <a href="/home" style="color: white; text-decoration: none;">add</a>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
