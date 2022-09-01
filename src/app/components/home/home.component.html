@@ -4,7 +4,9 @@
     <div class="row d-flex justify-content-center">
         <div class="col-7">
             <h5 style="text-align: center;">Jugadores</h5>
+            <!-- TABLA JUGADORES -->
             <table class="table">
+                <!-- HEADER -->
                 <thead>
                     <tr>
                         <th scope="col">#id</th>
@@ -16,6 +18,7 @@
                         <th scope="col">Eliminar jugadas</th>
                     </tr>
                 </thead>
+                <!-- ROWS -->
                 <tbody>
                     <tr *ngFor="let jugador of jugadores">
                         <td>{{ jugador.idJugador }}</td>
@@ -61,6 +64,7 @@
 
         <div class="col-5">
             <h5 style="text-align: center;">Jugada actual</h5>
+            <!-- TABLA JUGADAS -->
             <table class="table">
                 <thead>
                     <tr>
